@@ -1,22 +1,29 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent } from "react";
 
-import Button from '../Button/Button';
-import InputText from '../InputText/InputText';
-import $ from './Form.module.css';
+import Button from "../Button/Button";
+import InputText from "../InputText/InputText";
+import $ from "./Form.module.css";
 
 interface FormEntry {
   name: string;
   placeholder: string;
   // TODO: Defined a suitable type for extra props
   // This type should cover all different of attribute types
-  extraProps: any;
+  extraProps?: {
+    value: string;
+    onChange?: (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >
+    ) => void;
+  };
 }
 
 interface FormProps {
   label: string;
   loading: boolean;
   formEntries: FormEntry[];
-  onFormSubmit: () => void;
+  onFormSubmit: (e: React.ChangeEvent<HTMLFormElement>) => void;
   submitText: string;
 }
 
@@ -25,7 +32,7 @@ const Form: FunctionComponent<FormProps> = ({
   loading,
   formEntries,
   onFormSubmit,
-  submitText
+  submitText,
 }) => {
   return (
     <form onSubmit={onFormSubmit}>
@@ -37,7 +44,8 @@ const Form: FunctionComponent<FormProps> = ({
               key={`${name}-${index}`}
               name={name}
               placeholder={placeholder}
-              {...extraProps}
+              value={extraProps?.value || ""}
+              onChange={extraProps?.onChange}
             />
           </div>
         ))}

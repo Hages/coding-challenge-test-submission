@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from "react";
 
-export type ButtonType = any;
-export type ButtonVariant = 'primary' | 'secondary';
+export type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>["type"];
+export type ButtonVariant = "primary" | "secondary";
